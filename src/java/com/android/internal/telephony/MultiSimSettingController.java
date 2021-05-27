@@ -307,7 +307,9 @@ public class MultiSimSettingController extends Handler {
     private void onAllSubscriptionsLoaded() {
         if (DBG) log("onAllSubscriptionsLoaded");
         mSubInfoInitialized = true;
-        reEvaluateAll();
+        updateDefaults(/*init*/ true);
+        disableDataForNonDefaultNonOpportunisticSubscriptions();
+        deactivateGroupedOpportunisticSubscriptionIfNeeded();
     }
 
     /**
@@ -785,7 +787,7 @@ public class MultiSimSettingController extends Handler {
         }
     }
 
-    protected void log(String msg) {
+    private void log(String msg) {
         Log.d(LOG_TAG, msg);
     }
 
